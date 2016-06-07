@@ -1,4 +1,3 @@
-
 var models = require('../models');
 var Sequelize = require('sequelize');
 
@@ -12,7 +11,7 @@ exports.load = function(req, res, next, userId) {
                 next();
             } else {
                 req.flash('error', 'No existe el usuario con id='+id+'.');
-                throw new Error('No existe userId=' + userId);
+                next(new Error('No existe userId=' + userId));
             }
         })
         .catch(function(error) { next(error); });
@@ -62,7 +61,7 @@ exports.create = function(req, res, next) {
                 return user.save({fields: ["username", "password", "salt"]})
                     .then(function(user) { // Renderizar pagina de usuarios
                         req.flash('success', 'Usuario creado con éxito.');
-                        res.redirect('/session'); // Redireccion a pagina de login
+                        res.redirect('/session');
                     })
                     .catch(Sequelize.ValidationError, function(error) {
                         req.flash('error', 'Errores en el formulario:');
@@ -88,16 +87,10 @@ exports.edit = function(req, res, next) {
 // PUT /users/:id
 exports.update = function(req, res, next) {
 
-    // req.user.username  = req.body.user.username; // No se permite su edicion
+    req.user.username  = req.body.user.username;
     req.user.password  = req.body.user.password;
 
-    // El password no puede estar vacio
-    if ( ! req.body.user.password) { 
-        req.flash('error', "El campo Password debe rellenarse.");
-        return res.render('users/edit', {user: req.user});
-    }
-
-    req.user.save({fields: ["password", "salt"]})
+    req.user.save({fields: ["username", "password", "salt"]})
         .then(function(user) {
             req.flash('success', 'Usuario actualizado con éxito.');
             res.redirect('/users');  // Redirección HTTP a /
@@ -135,4 +128,27 @@ exports.destroy = function(req, res, next) {
             next(error); 
         });
 };
+
+
+
+/*
+ * Autenticar un usuario: Comprueba si el usuario esta registrado en users
+ *
+ * Devuelve una Promesa que busca el usuario con el login dado y comprueba su password.
+ * La promesa se satisface si todo es correcto, y devuelve un objeto con el User.
+ * La promesa falla si la autenticación falla o si hay errores.
+ */
+exports.autenticar = function(login, password) {
+    
+    return models.User.findOne({where: {username: login}})
+        .then(function(user) {
+            if (user && user.verifyPassword(password)) {
+                return user;
+            } else {
+                throw new Error('Autenticación fallida.');
+            }
+        });
+}; 
+
+
 

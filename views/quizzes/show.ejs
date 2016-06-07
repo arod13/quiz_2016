@@ -5,6 +5,12 @@
       Pregunta: <%= quiz.question %>
     </p>
 
+    <% if(quiz.Attachment){ %>
+        <img src="<%= quiz.Attachment.url %>"/>
+    <% } else { %>
+        <img src="/images/question.png" width="50px" />
+    <% } %>
+
     <p>
       <input type="text" name="answer" value="<%= answer %>" placeholder="Respuesta" />
       <input type="submit" value="Comprobar">
@@ -12,29 +18,29 @@
   </form>
 </p>
 
-<% if (session.user) { %>
-  <p>
-    <a href="/quizzes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a>
-  </p>
+<% if (session.user){ %>
+<p> 
+  <a href="/quizzes/<%= quiz.id %>/comments/new"><button>Nuevo Comentario</button></a>
+</p>
+
 <% } %>
 
 <p><strong>Comentarios:</strong></p>
-
 <ul>
-  <% for (var i in quiz.Comments) { 
-       var comment = quiz.Comments[i];
-       if (comment.accepted) { %>
+	<% for(var i in quiz.Comments){
+    var comment=quiz.Comments[i];
+    if(comment.accepted){ %>
+            <li><%= comment.text %>
+       <% for(var j in users) { 
+         if(users[j].id === comment.AuthorId) { %>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autor: <strong><%= users[j].username %></strong>
+         <% }
+       } %>
+     </li>
+   <% } else if(session.user && (session.user.isAdmin || (quiz.AuthorId === session.user.id))){ %>
+    <li><%= comment.text %></li>
 
-           <li> <%= comment.text %> </li>
-
-       <% } else if (session.user && 
-                     (session.user.isAdmin || (quiz.AuthorId === session.user.id))) { %>
-
-           <li> <%= comment.text %> </li>
-
-           <a href="/quizzes/<%= quiz.id %>/comments/<%= comment.id %>/accept?_method=PUT">
-              <button>Aceptar</button>
-           </a>
-       <% } %>
+    <a href="/quizzes/<%= quiz.id %>/comments/<%= comment.id %>/accept?_method=PUT"><button>Aceptar</button></a>
+ <%  } %>
   <% } %>
 </ul>
