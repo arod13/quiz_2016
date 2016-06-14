@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+=======
+<h2> <%= title || "Quizzes" %> </h2>
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 
 <%  if (locals.paginate_control) { %>
   <%- paginate_control %>
@@ -45,6 +49,7 @@
 
 <% if (session.user) { %>
   <a href="/quizzes/new"><button type="button">Crear pregunta</button></a>
+<<<<<<< HEAD
 <% } %>
 
 
@@ -53,3 +58,6 @@
 <p><input type="text" name="search" placeholder='Busca'/> <p>
 <p><input type="submit" value="Buscar"/>
 </form> 
+=======
+<% } %>
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe

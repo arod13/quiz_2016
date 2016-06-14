@@ -80,7 +80,10 @@ var authenticate = function(login, password) {
     
     return models.User.findOne({where: {username: login}})
         .then(function(user) {
+<<<<<<< HEAD
         var tiempoaux =Date.now() +120000
+=======
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
             if (user && user.verifyPassword(password)) {
                 return user;
             } else {
@@ -124,7 +127,11 @@ exports.create = function(req, res, next) {
             if (user) {
     	        // Crear req.session.user y guardar campos id y username
     	        // La sesión se define por la existencia de: req.session.user
+<<<<<<< HEAD
     	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin, finish: tiempoaux};
+=======
+    	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin};
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 
                 res.redirect(redir); // redirección a redir
             } else {
@@ -137,6 +144,7 @@ exports.create = function(req, res, next) {
             next(error);        
     });
 };
+<<<<<<< HEAD
 exports.time_logout = function(req, res, next) {
     if (req.session.user) {
         var tnow = Date.now();
@@ -151,6 +159,8 @@ exports.time_logout = function(req, res, next) {
         next();
     }
 };
+=======
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 
 
 // DELETE /session   -- Destruir sesion 

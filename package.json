@@ -6,8 +6,13 @@
     "start": "node ./bin/www",
     "migrate_local": "./node_modules/.bin/sequelize db:migrate --url sqlite://$(pwd)/quiz.sqlite",
     "seed_local": "./node_modules/.bin/sequelize db:seed:all --url sqlite://$(pwd)/quiz.sqlite",
+<<<<<<< HEAD
     "migrate_heroku": "heroku run ./node_modules/.bin/sequelize db:migrate --url postgres://ewnvagsmkcgxrg:OJnej-4ept-YM8v8dx9FMlzL_k@ec2-54-235-195-226.compute-1.amazonaws.com:5432/d28o4eb4o0bb89",
     "seed_heroku": "heroku run ./node_modules/.bin/sequelize db:seed:all --url postgres://ewnvagsmkcgxrg:OJnej-4ept-YM8v8dx9FMlzL_k@ec2-54-235-195-226.compute-1.amazonaws.com:5432/d28o4eb4o0bb89",
+=======
+    "migrate_heroku": "heroku run ./node_modules/.bin/sequelize db:migrate --url \\$DATABASE_URL",
+    "seed_heroku": "heroku run ./node_modules/.bin/sequelize db:seed:all --url \\$DATABASE_URL",
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
     "reset_heroku": "heroku pg:reset DATABASE"
   },
   "engines": {
@@ -31,8 +36,12 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.19.3",
     "sequelize-cli": "^2.3.1",
+<<<<<<< HEAD
     "serve-favicon": "~2.3.0",
     "sqlite3": "^3.1.1"
+=======
+    "serve-favicon": "~2.3.0"
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
   },
   "devDependencies": {
     "sqlite3": "^3.1.1"

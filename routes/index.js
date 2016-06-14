@@ -15,6 +15,7 @@ var favouriteController = require('../controllers/favourite_controller');
 router.get('/', function(req, res, next) {
   res.render('index');
 });
+<<<<<<< HEAD
 router.get("/author", function(req, res, next){
 res.render("author.ejs");
 });
@@ -22,6 +23,8 @@ res.render("author.ejs");
 router.get('/HOME_PAGE', function(req,res,next){
 	res.render('HOME_PAGE');
 });
+=======
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 
 
 // Autoload de parametros
@@ -56,8 +59,13 @@ router.get('/users/:userId(\\d+)/quizzes', sessionController.loginRequired,
 
 
 // Definición de rutas de /quizzes
+<<<<<<< HEAD
 router.get('/quizzes.:format?',                     	quizController.index);
 router.get('/quizzes/:quizId(\\d+).:format?',       	quizController.show);
+=======
+router.get('/quizzes',                     	quizController.index);
+router.get('/quizzes/:quizId(\\d+)',       	quizController.show);
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 router.get('/quizzes/:quizId(\\d+)/check', 	quizController.check);
 router.get('/quizzes/new',                 	sessionController.loginRequired, 
 											quizController.new);

@@ -10,7 +10,10 @@ var flash = require('express-flash');
 var methodOverride = require('method-override');
 
 var routes = require('./routes/index');
+<<<<<<< HEAD
 var sessionController=require('./controllers/session_controller');
+=======
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 
 var app = express();
 
@@ -44,7 +47,10 @@ app.use(session({secret: "Quiz 2016",
 app.use(methodOverride('_method', {methods: ["POST", "GET"]}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 app.use(partials());
 app.use(flash());
 
@@ -61,7 +67,11 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
+<<<<<<< HEAD
 app.use('/', sessionController.time_logout);
+=======
+
+>>>>>>> 9622ca51b4e629e961c7e794d54d777ad4a1dbfe
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
